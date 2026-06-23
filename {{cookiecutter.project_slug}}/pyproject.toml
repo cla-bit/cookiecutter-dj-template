@@ -15,6 +15,15 @@ dependencies = [
     "django-filter (>=25.1,<26.0)",
 ]
 
+
+[tool.poetry.group.docs.dependencies]
+drf-spectacular = "^0.28.0"
+
+
+[tool.poetry.group.log.dependencies]
+python-json-logger = "^4.1.0"
+django-guid = "^3.5.2"
+
 [tool.poetry]
 package-mode = false
 

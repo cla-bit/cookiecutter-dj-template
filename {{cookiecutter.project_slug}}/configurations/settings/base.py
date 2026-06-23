@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 
+from django_guid.integrations import CeleryIntegration
+
 from configurations.env import BASE_DIR
+from logging_configs import LOGGING as BASE_LOGGING
 
 
 # Quick-start development settings - unsuitable for production
@@ -36,12 +39,15 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "rest_framework",
     "django_filters",
+    "django_guid",
+    "drf_spectacular",
 ]
 
 INSTALLED_APPS = THIRD_PARTY_APPS + MY_APPS + DJANGO_APPS
 
 
 MIDDLEWARE = [
+    "django_guid.middleware.guid_middleware",
     'django.middleware.security.SecurityMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -70,6 +76,25 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'configurations.wsgi.application'
+
+# Logging settings
+LOGGING = BASE_LOGGING
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    "DEFAULT_RENDERER_CLASSES": [],
+    "DEFAULT_VERSIONING_CLASS": "",
+    "DEFAULT_SCHEMA_CLASS": "",
+    "DEFAULT_PARSER_CLASSES": [],
+    "DEFAULT_PERMISSION_CLASSES": [],
+    "DEFAULT_FILTER_BACKENDS": [],
+    "DEFAULT_AUTHENTICATION_CLASSES": [],
+    "DEFAULT_PAGINATION_CLASS": "",
+    "PAGE_SIZE": 100,
+}
+
+AUTHENTICATION_BACKENDS = []
 
 
 # Password validation
@@ -106,4 +131,68 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = ""
+
+# Celery settings
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")  # change localhost to the service name of redis in docker-compose.yml
+CELERY_RESULT_BACKEND = os.getenv("CELERY_BROKER_URL")  # change localhost to the service name of redis in docker-compose.yml
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True  # Broker connection retry on startup
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_ENABLE_UTC = True
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_TASK_ALWAYS_EAGER = False  # Set to False for actual async processing in production
+CELERY_TASK_EAGER_PROPAGATES = True
+# Add this line to use django-celery-beat's DatabaseScheduler
+CELERY_BEAT_SCHEDULER = ""
+
+
+# drf-spectacular api documentation settings
+SPECTACULAR_SETTINGS = {
+    "TITLE": "",
+    "DESCRIPTION": "",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,  # if using Swagger/Redoc view separately
+    "COMPONENT_SPLIT_REQUEST": True,
+    # Add auth info if using JWT
+    "AUTHENTICATION_WHITELIST": [""],
+    "SECURITY": [{"BearerAuth": []}],
+    "COMPONENTS": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "",
+                "scheme": "",
+                "bearerFormat": "",
+                "description": "",
+            }
+        }
+    },
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+        "persistAuthorization": True,  # Saves token between page refreshes
+    },
+}
+
+
+DJANGO_GUID = {
+    "GUID_HEADER_NAME": "Correlation-ID",
+    "VALIDATE_GUID": True,
+    "RETURN_HEADER": True,
+    "EXPOSE_HEADER": True,
+    "INTEGRATIONS": [CeleryIntegration(use_django_logging=True, log_parent=True)],
+    "UUID_LENGTH": 28,
+    "UUID_FORMAT": "hex",
+}
