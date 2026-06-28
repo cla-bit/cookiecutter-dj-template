@@ -15,9 +15,8 @@
 
     "use_postgresql": ["yes", "no"],
 
-    "__has_postgresql": "{% if cookiecutter.use_postgresql == 'yes' %}true{% else %}false{% endif %}",
-    "postgresql_version": ["16", "15", "14"],
-    "database_name": "{% if cookiecutter.project_slug %}{{ cookiecutter.project_slug }}{% endif %}",
+    "postgresql_version": "{% if cookiecutter.use_postgresql == 'yes' %}[\'16\', \'15\', \'14\']{% else %}None{% endif %}",
+    "database_name": "{% if cookiecutter.use_postgresql == 'yes' %}{{ cookiecutter.project_slug }}{% else %}None{% endif %}",
 
     "use_celery": ["yes", "no"],
 
@@ -25,5 +24,5 @@
 
     "cloud_provider": ["None", "AWS", "Azure"],
 
-    "django_secret_key": "{% if cookiecutter.project_slug %}{{ random_ascii_string 50 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)' }}{% endif %}"
+    "django_secret_key": "{% if cookiecutter.project_slug %}{{ 50 | random_ascii_string }}{% endif %}"
 }
