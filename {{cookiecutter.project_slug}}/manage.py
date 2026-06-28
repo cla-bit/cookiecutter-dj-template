@@ -4,7 +4,7 @@
 import os
 import sys
 
-from configurations.env import load_environment
+from configs.env import load_environment
 
 
 load_environment()

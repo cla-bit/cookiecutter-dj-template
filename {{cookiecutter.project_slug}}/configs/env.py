@@ -20,4 +20,4 @@ load_environment()
 
 DJANGO_ENV = os.environ.get("DJANGO_ENV", "development")
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", f"configurations.settings.{DJANGO_ENV}")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", f"configs.settings.{DJANGO_ENV}")

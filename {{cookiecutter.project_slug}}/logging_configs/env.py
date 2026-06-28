@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from configurations.env import BASE_DIR
+from configs.env import BASE_DIR
 
 
 DJANGO_ENV = os.getenv("DJANGO_ENV").lower()

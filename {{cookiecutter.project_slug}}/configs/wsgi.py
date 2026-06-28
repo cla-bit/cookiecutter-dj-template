@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
 
 from django.core.wsgi import get_wsgi_application
 
-from configurations.env import load_environment
+from configs.env import load_environment
 
 
 load_environment()
