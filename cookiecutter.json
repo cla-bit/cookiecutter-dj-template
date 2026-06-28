@@ -6,14 +6,16 @@
     "email": "example@gmail.com",
     "version": "0.1.0",
 
-    "python_version": ["3.12", "3.13", "3.14"],
-    "django_version": ["5.2", "6.0"],
+    "python_version": ["3.14", "3.13", "3.12"],
+    "django_version": ["6.0", "5.2"],
 
     "use_djangorestframework": ["yes", "no"],
 
     "use_docker": ["yes", "no"],
 
     "use_postgresql": ["yes", "no"],
+
+    "__has_postgresql": "{% if cookiecutter.use_postgresql == 'yes' %}true{% else %}false{% endif %}",
     "postgresql_version": ["16", "15", "14"],
     "database_name": "{% if cookiecutter.project_slug %}{{ cookiecutter.project_slug }}{% endif %}",
 
@@ -23,5 +25,5 @@
 
     "cloud_provider": ["None", "AWS", "Azure"],
 
-    "django_secret_key": "{% if cookiecutter.project_slug %}{% random_ascii_string 50 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)' %}{% endif %}"
+    "django_secret_key": "{% if cookiecutter.project_slug %}{{ random_ascii_string 50 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)' }}{% endif %}"
 }
