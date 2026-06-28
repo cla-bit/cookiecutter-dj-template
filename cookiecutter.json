@@ -22,7 +22,5 @@
 
     "use_drf_spectacular": ["yes", "no"],
 
-    "cloud_provider": ["None", "AWS", "Azure"],
-
-    "django_secret_key": "{% if cookiecutter.project_slug %}{{ 50 | random_ascii_string }}{% endif %}"
+    "cloud_provider": ["None", "AWS", "Azure"]
 }
