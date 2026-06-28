@@ -15,7 +15,7 @@
 
     "use_postgresql": ["yes", "no"],
 
-    "postgresql_version": "{% if cookiecutter.use_postgresql == 'yes' %}[\'16\', \'15\', \'14\']{% else %}None{% endif %}",
+    "postgresql_version": "{% if cookiecutter.use_postgresql == 'yes' %}[\"16\", \"15\", \"14\"]{% else %}None{% endif %}",
     "database_name": "{% if cookiecutter.use_postgresql == 'yes' %}{{ cookiecutter.project_slug }}{% else %}None{% endif %}",
 
     "use_celery": ["yes", "no"],
