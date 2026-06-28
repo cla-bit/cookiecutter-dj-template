@@ -64,7 +64,7 @@ To keep project generation lightweight, dependency compilation is handed entirel
     Navigate into your generated folder *(using your chosen project_slug)* and build a local isolated virtual environment:
 
     ```shell
-    # Change directory to your new codebase workspace
+    # Change directory to your new codebase workspace, if not in your root project
     cd your_project_slug
     
     # Create a standard, local virtual environment (Windows)
