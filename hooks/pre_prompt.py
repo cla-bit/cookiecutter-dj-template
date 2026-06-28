@@ -90,25 +90,38 @@ def main() -> None:
     print("System Check: Validating Environment Prerequisites")
     print("=" * 60)
 
-    checks = {
+    critical_checks = {
         "Python": check_python_version(),
         "Git": check_git(),
         "Poetry": check_poetry(),
+    }
+
+    conditional_checks = {
         "Docker": check_docker(),
         "PostgreSQL": check_postgresql()
     }
 
     print("-" * 60)
 
-    # Track critical failures
-    failed_dependencies = [name for name, passed in checks.items() if not passed]
-
-    if failed_dependencies:
-        print("⚠️  CRITICAL: Missing environment requirements detected!")
-        print(f"Please install or launch the following tools before generating the project: {', '.join(failed_dependencies)}")
-        print("Aborting generation workflow.")
+    # Process Hard Failures
+    failed_critical = [name for name, passed in critical_checks.items() if not passed]
+    if failed_critical:
+        print("❌ CRITICAL ERROR: Missing core system environment requirements!")
+        print(f"The template requires these dependencies to build: {', '.join(failed_critical)}")
+        print("Aborting project generation workflow.")
         print("=" * 60)
         sys.exit(1)  # Terminate early before prompting user inputs
+
+    # Track Soft Failures
+    failed_conditional = [name for name, passed in conditional_checks.items() if not passed]
+
+    if failed_conditional:
+        print("⚠️  NOTICE: Missing conditional dependencies detected:")
+        print(f"  - {', '.join(failed_conditional)}")
+        print("\n  You can safely continue. When prompted by Cookiecutter, make sure to")
+        print("  select 'no' for features utilizing these tools if you cannot run them.")
+        print("-" * 60)
+
 
     print("🎉 All core pre-requisite dependencies satisfied! Moving to project setup prompts...")
     print("=" * 60)
@@ -117,8 +130,3 @@ def main() -> None:
 if __name__ == "__main__":
     print("Checking system prerequisites...")
     main()
-
-    # if not check_docker():
-    #     print("ERROR: Docker is either not installed or not running.")
-    #     print ("Please start Docker before running this template.")
-    #     sys.exit(1) # Halts Cookiecutter immediately
