@@ -1,9 +1,27 @@
 {
-    "project_name": "My Django Project",
+    "project_name": "Django Starter Project",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-    "description": "Enterprise Django REST API",
-    "author_name": "Peter Claver",
-    "email": "doublep098@gmail.com",
-    "python_version": "3.13",
-    "django_version": "5.2"
+    "description": "A Django / Django REST API template for enterprise projects",
+    "author_name": "Gemini",
+    "email": "example@gmail.com",
+    "version": "0.1.0",
+
+    "python_version": ["3.12", "3.13", "3.14"],
+    "django_version": ["5.2", "6.0"],
+
+    "use_djangorestframework": ["yes", "no"],
+
+    "use_docker": ["yes", "no"],
+
+    "use_postgresql": ["yes", "no"],
+    "postgresql_version": ["16", "15", "14"],
+    "database_name": "{% if cookiecutter.project_slug %}{{ cookiecutter.project_slug }}{% endif %}",
+
+    "use_celery": ["yes", "no"],
+
+    "use_drf_spectacular": ["yes", "no"],
+
+    "cloud_provider": ["None", "AWS", "Azure"],
+
+    "django_secret_key": "{% if cookiecutter.project_slug %}{% random_ascii_string 50 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)' %}{% endif %}"
 }
