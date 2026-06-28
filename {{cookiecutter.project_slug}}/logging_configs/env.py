@@ -4,9 +4,9 @@ from pathlib import Path
 from configs.env import BASE_DIR
 
 
-DJANGO_ENV = os.getenv("DJANGO_ENV").lower()
+DJANGO_ENV = os.getenv("DJANGO_ENV").lower()  # noqa: F405
 
-LOG_DIR_PATH = os.getenv("LOG_DIR_PATH")
+LOG_DIR_PATH = os.getenv("LOG_DIR_PATH")  # noqa: F405
 
 if DJANGO_ENV == "production":
     LOGS_DIR = Path(os.getenv("LOGS_DIR", LOG_DIR_PATH))

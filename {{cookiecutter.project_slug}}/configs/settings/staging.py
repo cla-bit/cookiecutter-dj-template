@@ -1,35 +1,35 @@
-from .base import *
+from .base import *  # noqa: F403
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")  # noqa: F405
 
 # SECURITY WARNING: don't run with debug turned on in production!.
 DEBUG = False  # Set DEBUG to os.getenv("DEBUG")
 
 # add this in the ALLOWED_HOSTS env variable for prod environment: avetiumbackupservice.avetiumconsult.com,161.35.165.249,backup-coral.vercel.app
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")  # noqa: F405
 
-FRONTEND_BASE_URL = os.getenv("FRONTEND_BASE_URL")
+FRONTEND_BASE_URL = os.getenv("FRONTEND_BASE_URL")  # noqa: F405
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
-        "PORT": os.getenv("POSTGRES_PORT", "5432"),
+        "NAME": os.getenv("POSTGRES_DB"),  # noqa: F405
+        "USER": os.getenv("POSTGRES_USER"),  # noqa: F405
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),  # noqa: F405
+        "HOST": os.getenv("POSTGRES_HOST", "localhost"),  # noqa: F405
+        "PORT": os.getenv("POSTGRES_PORT", "5432"),  # noqa: F405
         "OPTIONS": {
-            "sslmode": os.getenv("POSTGRES_SSLMODE", "require"),
+            "sslmode": os.getenv("POSTGRES_SSLMODE", "require"),  # noqa: F405
         },
     }
 }
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # For production
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # noqa: F405  # For production
 
 # cors settings
 CORS_ALLOWED_ORIGINS = []

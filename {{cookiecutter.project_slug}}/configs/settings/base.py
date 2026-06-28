@@ -156,7 +156,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # noqa: F405
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -167,8 +167,8 @@ AUTH_USER_MODEL = ""
 
 {% if cookiecutter.use_celery == "yes" %}
 # Celery settings
-CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")  # change localhost to the service name of redis in docker-compose.yml
-CELERY_RESULT_BACKEND = os.getenv("CELERY_BROKER_URL")  # change localhost to the service name of redis in docker-compose.yml
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")  # noqa: F405  # change localhost to the service name of redis in docker-compose.yml
+CELERY_RESULT_BACKEND = os.getenv("CELERY_BROKER_URL")  # noqa: F405  # change localhost to the service name of redis in docker-compose.yml
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True  # Broker connection retry on startup
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
@@ -184,9 +184,10 @@ CELERY_BEAT_SCHEDULER = ""
 {% endif %}
 
 {% if cookiecutter.use_drf_spectacular == "yes" %}
+
 # drf-spectacular api documentation settings
 SPECTACULAR_SETTINGS = {
-    "TITLE": " {{ cookiecutter.project_name }}".title(),
+    "TITLE": str("{{ cookiecutter.project_name }}").title(),
     "DESCRIPTION": "{{ cookiecutter.description }}",
     "VERSION": "{{ cookiecutter.version }}",
     "SERVE_INCLUDE_SCHEMA": False,  # if using Swagger/Redoc view separately
