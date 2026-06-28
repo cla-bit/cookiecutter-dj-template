@@ -40,7 +40,12 @@ drf-spectacular = "^0.28.0"
 
 [tool.poetry.group.log.dependencies]
 python-json-logger = "^4.1.0"
+{% if cookiecutter.django_version == "5.2" %}
 django-guid = "^3.5.2"
+{% else %}
+django-guid = "^4.0.0"
+{% endif %}
+
 
 [tool.poetry]
 package-mode = false
