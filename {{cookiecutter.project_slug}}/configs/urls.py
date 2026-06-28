@@ -26,7 +26,6 @@ urlpatterns = [
 ]
 
 {% if cookiecutter.use_drf_spectacular == "yes" %}
-
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns += [
@@ -45,7 +44,6 @@ urlpatterns += [
         name="redoc",
     ),
 ]
-
 {% endif %}
 
 
